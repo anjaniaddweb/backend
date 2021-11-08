@@ -19,7 +19,7 @@ $id=$_GET['s_id'];
 
 $sql="delete from student where s_id=$id";
 
-$query=mysqli_query($con,$sql) or die("Error in Query");
+$query=mysqli_query($con,$sql) or die("Error in Query.");
 
 
 if($query){
@@ -27,7 +27,7 @@ if($query){
     header('Location:dashboard.php');
     }
 else{
-    echo "Error in delete";
+    echo "<script>alert('Error in delete.)</script>";
 }
 
 

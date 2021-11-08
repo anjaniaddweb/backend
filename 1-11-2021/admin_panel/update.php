@@ -4,7 +4,7 @@ session_start();
 include 'con.php';
 
 if($_SESSION['email']==''){
-header('Location:login.php');
+    header('Location:login.php');
 }
 else{
 
@@ -14,7 +14,7 @@ $email=$_SESSION['email'];
 $query1=mysqli_query($con,"select s_name from student where s_email='$email'") or die('Error in query');
 
 $row1=mysqli_fetch_array($query1);
-echo "<center>Hello ".$row1['s_name']."</center>";
+echo "<center><h5>Hello ".$row1['s_name']."</h5></center>";
 
 $query2=mysqli_query($con," select * from student where s_id='$id' ") or die("Error in query");
 $row2=mysqli_fetch_array($query2);
@@ -58,6 +58,10 @@ $mobno=$row2['s_mno'];
                 <td> <input type="password" class="input-value" name="pwd" id="pwd" value="<?php echo $password ?>"> </td>
             </tr>
             <tr>
+                <td><label for="c_pwd">Re-enter Password:</label></td>
+                <td> <input type="password" class="input-value" name="confirm_password" id="pwd" value="<?php echo $password ?>"> </td>
+            </tr>
+            <tr>
                 <td> <label for="mobno">Enter Mobile No.</label> </td>
                 <td> <input type="text" class="input-value" name="mobno" id="mobno" value="<?php echo $mobno ?>"> </td>
             </tr>
@@ -75,26 +79,29 @@ $mobno=$row2['s_mno'];
 
 if(isset($_POST['update'])){
 
-$name=$_POST['name'];
-$email=$_POST['email'];
-$password=$_POST['pwd'];
-$mobileno=$_POST['mobno'];
+    if($_POST["pwd"]===$_POST["confirm_password"]){
 
-include 'con.php';
+        $name=$_POST['name'];
+        $email=$_POST['email'];
+        $password=$_POST['pwd'];
+        $mobileno=$_POST['mobno'];
 
-$sql="update student set s_name='$name',s_email='$email',s_pwd='$password',s_mno='$mobileno' where s_id=$id";
+        include 'con.php';
 
-$query=mysqli_query($con,$sql) or die("Error in Query");
+        $sql="update student set s_name='$name',s_email='$email',s_pwd='$password',s_mno='$mobileno' where s_id=$id";
+
+        $query=mysqli_query($con,$sql) or die("Error in Query");
 
 
-if($query){
-echo "data update";
-header('Location:dashboard.php');
-}else{
-echo "Error in update";
-}
-
-mysqli_close($con);
+        if($query){
+        echo "data update";
+        header('Location:dashboard.php');
+        }else{
+        echo "Error in update";
+        }
+    }else{
+        echo "<script>alert('Password are not same.');</script>";
+    }
 }
 
 ?>

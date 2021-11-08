@@ -42,12 +42,16 @@
 include 'con.php';
 session_start();
 
-
-$email=$_SESSION['email'];
-$query1=mysqli_query($con,"select s_name from student where s_email='$email'") or die("error in query");
-
-$row1=mysqli_fetch_array($query1);
-    echo "<center>Hello ".$row1['s_name']."</center>";
+if($_SESSION['email']==''){
+    header('Location:login.php');
+}
+else{
+    $email=$_SESSION['email'];
+    $query1=mysqli_query($con,"select s_name from student where s_email='$email'") or die("error in query");
+    
+    $row1=mysqli_fetch_array($query1);
+        echo "<center><h5>Hello ".$row1['s_name']."</h5></center>";    
+}
 
 
 echo "<center><table class='table-primary' border='2'>

@@ -34,6 +34,11 @@
             </tr>
             <tr>
                 <td>
+                <input type="password" class="input-value" name="confirm_password" id="" placeholder="Re-enter the Password">
+                </td>
+            </tr>
+            <tr>
+                <td>
                 <input type="text" class="input-value" name="mobile" id="" placeholder="Enter your Mobile Number">
                 </td>
             </tr>
@@ -50,25 +55,30 @@
 </html>
 
 <?php
+session_start();
 include 'con.php';
 
 
 if(isset($_POST['signup'])){
 
-    $name=$_POST['name'];
-    $email=$_POST['email'];
-    $password=$_POST['password'];
-    $mobile=$_POST['mobile'];
-
-    $query="insert into student(s_name,s_email,s_pwd,s_mno) values('$name','$email','$password','$mobile')" or die("error in query");
+    if($_POST["password"]===$_POST["confirm_password"]){
+        $name=$_POST['name'];
+        $email=$_POST['email'];
+        $password=$_POST['password'];
+        $mobile=$_POST['mobile'];
     
-    if(mysqli_query($con,$query))
-    {
-        header('Location:login.php');
-    }
-    else
-    {
-        echo "failed";
+        $query="insert into student(s_name,s_email,s_pwd,s_mno) values('$name','$email','$password','$mobile')" or die("error in query");
+        
+        if(mysqli_query($con,$query))
+        {
+            header('Location:login.php');
+        }
+        else
+        {
+            echo "failed";
+        }
+    }else{
+        echo "<script>alert('Password are not same.')</script>";
     }
 }
 
