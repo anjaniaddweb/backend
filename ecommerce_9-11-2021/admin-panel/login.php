@@ -20,12 +20,12 @@
             </tr>
             <tr>
                 <td>
-                <input type="email" class="input-value" name="email" id="" placeholder="enter your email">
+                <input type="email" class="input-value" value="<?php if(isset($_COOKIE["email"])) { echo $_COOKIE["email"]; } ?>" name="email" id="" placeholder="enter your email">
                 </td>
             </tr>
             <tr>
                 <td>
-                <input type="password" class="input-value" name="password" id="" placeholder="enter your password">
+                <input type="password" class="input-value" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>" name="password" id="" placeholder="enter your password">
                 </td>
             </tr>
             <tr>

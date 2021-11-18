@@ -73,8 +73,7 @@ else{
 
         $selected=$_POST['c_name'];
 
-        $query="insert into product_detail(p_name,p_price,p_desc,p_image,c_name) values('$p_name',$p_price,'$p_desc','$filepath','$selected')" or die("error in query");
-
+        $query="insert into product_detail(p_name,p_price,p_desc,p_image,c_name) values('$p_name','$p_price','$p_desc','$filepath','$selected')" or die("error in query");
         move_uploaded_file($_FILES["file"]["tmp_name"], $filepath);
 
         if(mysqli_query($con,$query))

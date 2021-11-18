@@ -64,8 +64,8 @@ $is_active=$row2['is_active'];
             <tr>
                 <td><label for="file">Select Image:</label></td>
                 <td style="padding-left: 1%;">
-                <img src="../images/<?php echo $p_image ?>" style="width:100px;height:100px" alt="">
-                <input type="file" name="file" > 
+                <img src="<?php echo $p_image ?>" style="width:100px; height:100px" alt="">
+                <input type="file" name="file"  > 
                 </td>
             </tr>
             <tr>
@@ -100,11 +100,14 @@ if(isset($_POST['update'])){
     $p_name=$_POST['p_name'];
     $p_price=$_POST['p_price'];
     $p_desc=$_POST['p_desc'];
-    $filepath = "../images/" . $_FILES["file"]["name"];
     $selected=$_POST['c_name'];
     $is_active=$_POST['is_active'];
 
-
+    if($_FILES["file"]["size"]==0){
+        $filepath=$p_image;
+    }else{
+        $filepath = "../images/" . $_FILES["file"]["name"];
+    }
 
     include 'connection.php';
     move_uploaded_file($_FILES["file"]["tmp_name"], $filepath);
